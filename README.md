@@ -171,6 +171,7 @@ export const AppwriteService = scoped(class {
   };
 
   constructor(public jwt: string) {
+//            ^^^^^^^^^^^^^^^^^^
     console.log("AppwriteService CTOR", jwt)
     const client = new Client();
     client
