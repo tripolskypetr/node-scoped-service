@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>node-scoped-service</title>
+    <script src="./sdk.min.js"></script>
+    <script>
+      const client = new Appwrite.Client();
+      client
+        .setEndpoint("https://cloud.appwrite.io/v1")
+        .setProject("672f8382002190141578");
+
+      const account = new Appwrite.Account(client);
+
+      let session;
+
+      async function login(email, password) {
+        let isError = false;
+        try {
+          return (session = await account.createEmailPasswordSession(
+            email,
+            password
+          ));
+        } catch (error) {
+          isError = true;
+          alert(error.message);
+          throw error;
+        } finally {
+          if (!isError) {
+            alert("ok");
+          }
+        }
+      }
+
+      async function logout() {
+        let isError = false;
+        try {
+          return await account.deleteSession("current");
+        } catch (error) {
+          isError = true;
+          alert(error.message);
+          throw error;
+        } finally {
+          if (!isError) {
+            alert("ok");
+          }
+        }
+      }
+
+      async function register(email, password) {
+        let isError = false;
+        try {
+          return await account.create(Appwrite.ID.unique(), email, password);
+        } catch (error) {
+          isError = true;
+          alert(error.message);
+          throw error;
+        } finally {
+          if (!isError) {
+            alert("ok");
+          }
+        }
+      }
+
+      async function createJWT() {
+        try {
+          const { jwt } = await account.createJWT();
+          return jwt;
+        } catch (error) {
+          alert(error.message);
+          throw error;
+        }
+      }
+
+      async function createTodo(title) {
+        const jwt = await createJWT();
+        try {
+          const responce = await fetch("/api/v1/create_todo", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              title,
+            }),
+          });
+          const json = await responce.json();
+          alert(JSON.stringify(json, null, 2));
+        } catch (error) {
+          alert(error.message);
+        }
+      }
+
+      async function listTodo() {
+        const jwt = await createJWT();
+        try {
+          const responce = await fetch("/api/v1/list_todo", {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          });
+          const json = await responce.json();
+          alert(JSON.stringify(json, null, 2));
+        } catch (error) {
+          alert(error.message);
+        }
+      }
+
+      async function countTodo() {
+        const jwt = await createJWT();
+        try {
+          const responce = await fetch("/api/v1/count_todo", {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          });
+          const json = await responce.json();
+          alert(JSON.stringify(json, null, 2));
+        } catch (error) {
+          alert(error.message);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <fieldset>
+      <legend>Appwrite actions:</legend>
+      <button onclick="login(prompt('email'), prompt('password'))">
+        Login
+      </button>
+      <button onclick="logout()">Logout</button>
+      <button onclick="register(prompt('email'), prompt('password'))">
+        Register
+      </button>
+      <button onclick="createJWT().then((jwt) => prompt('JWT', jwt))">
+        Create JWT
+      </button>
+      <p>List of precreated users:</p>
+      <span>test1@noemail.com - alpine123456</span><br />
+      <span>test2@noemail.com - alpine123456</span>
+    </fieldset>
+    <fieldset>
+      <legend>Backend actions:</legend>
+      <button onclick="createTodo(prompt('Todo title'))">Create todo</button>
+      <button onclick="listTodo()">List todo</button>
+      <button onclick="countTodo()">Count todo</button>
+    </fieldset>
+    <fieldset>
+      <legend>How to:</legend>
+      <p>Login with appwrite actions and make API request to the backend</p>
+    </fieldset>
+  </body>
+</html>

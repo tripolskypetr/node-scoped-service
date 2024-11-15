@@ -1,0 +1,72 @@
+{
+    "projectId": "672f8382002190141578",
+    "projectName": "TodoList",
+    "databases": [
+        {
+            "$id": "672f839d0031c0ab37c1",
+            "name": "DATABASE",
+            "$createdAt": "2024-11-09T15:45:33.764+00:00",
+            "$updatedAt": "2024-11-09T15:45:33.764+00:00",
+            "enabled": true,
+            "policies": [],
+            "archives": []
+        }
+    ],
+    "collections": [
+        {
+            "$id": "63b1f7419bd5a1eae520",
+            "$permissions": [],
+            "databaseId": "672f839d0031c0ab37c1",
+            "name": "TODO",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "title",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": false,
+                    "array": false,
+                    "$createdAt": "2024-11-09T17:19:47.716+00:00",
+                    "$updatedAt": "2024-11-09T17:19:47.835+00:00",
+                    "size": 512,
+                    "default": null
+                },
+                {
+                    "key": "completed",
+                    "type": "boolean",
+                    "status": "available",
+                    "error": "",
+                    "required": false,
+                    "array": false,
+                    "$createdAt": "2024-11-09T17:19:54.448+00:00",
+                    "$updatedAt": "2024-11-09T17:19:54.555+00:00",
+                    "default": null
+                }
+            ],
+            "indexes": []
+        }
+    ],
+    "buckets": [
+        {
+            "$id": "672f83b400249c495186",
+            "$createdAt": "2024-11-09T15:45:56.552+00:00",
+            "$updatedAt": "2024-11-09T15:46:07.723+00:00",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "fileSecurity": false,
+            "name": "ROOT",
+            "enabled": true,
+            "maximumFileSize": 50000000,
+            "allowedFileExtensions": [],
+            "compression": "none",
+            "encryption": true,
+            "antivirus": true
+        }
+    ]
+}
