@@ -131,6 +131,7 @@ The JWT token for Authentication should be passed to AppwriteService by using co
 
 ```tsx
 export const AppwriteService = scoped(class {
+//                            ^^^^^^^^
 
   public client: Client = null as never;
   public storage: Storage = null as never;
