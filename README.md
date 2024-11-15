@@ -192,7 +192,7 @@ export const AppwriteService = scoped(class {
 export type TAppwriteService = InstanceType<typeof AppwriteService>;
 ```
 
-The JWT token should be taken from HTTP Context when the request comes to the express side. Here comes the scoped service feature: by calling `AppwriteService.runInContext(async () => {` you will reinstantiate the AppwriteService in the current `async_hooks` execution context
+The JWT token should be taken from HTTP Context when the request recieved on a express side. Here comes the scoped service feature: by calling `AppwriteService.runInContext(async () => {` you will reinstantiate the AppwriteService in the current `async_hooks` execution context
 
 ```javascript
 import { ioc, AppwriteService } from './lib';
