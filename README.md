@@ -202,8 +202,16 @@ import { ioc, AppwriteService } from './lib';
 
 router.get("/api/v1/count_todo", (req, res) => {
   const jwtToken = getAuthToken(req);
+
   AppwriteService.runInContext(async () => {
-    micro.send(res, 200, await ioc.todoRequestService.getTodoCount());
+
+    micro.send(
+      res, 
+      200, 
+      await ioc.todoRequestService.getTodoCount()
+    );
+
   }, jwtToken);
+
 });
 ```
