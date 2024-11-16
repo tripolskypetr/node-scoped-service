@@ -4,6 +4,28 @@
 
 ![screenshot](./docs/screenshot.PNG)
 
+```tsx
+import { scoped } from 'di-scoped';
+
+const TestClass = scoped(class {
+
+    constructor(private name: string) {
+    }
+
+    test() {
+        console.log(`Hello, ${this.name}`);
+    }
+});
+
+
+TestClass.runInContext(() => {
+
+    new TestClass().test(); // Hello, Peter
+
+}, "Peter")
+```
+
+
 ## ASP.Net Core Scoped Services for NodeJS
 
 When working with appwrite you can passthrough the client session from a frontend to the backend side by using [JWT Login](https://appwrite.io/docs/products/auth/jwt)
